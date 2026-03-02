@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check your NZeTA status | Immigration New Zealand</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://www.immigration.govt.nz/favicon.ico">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, 'Open Sans', sans-serif;
+            background: #ffffff;
+            color: #000000;
+            line-height: 1.5;
+        }
+
+        /* Header - Dark Blue */
+        .nz-header {
+            background: #132e48;
+            color: white;
+            padding: 15px 30px;
+        }
+
+        .nz-header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nz-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nz-logo a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .nz-logo img {
+            height: 50px;
+            width: auto;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .nz-logo img:hover {
+            opacity: 0.9;
+        }
+
+        .nz-logo-text {
+            font-size: 18px;
+            font-weight: 300;
+            color: white;
+        }
+
+        .nz-logo-text strong {
+            font-weight: 700;
+        }
+
+        .nz-header-right {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nz-header-right a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            transition: opacity 0.2s;
+        }
+
+        .nz-header-right a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main container */
+        .nz-container {
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* Title */
+        .nz-title {
+            margin-bottom: 20px;
+        }
+
+        .nz-title h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 5px;
+        }
+
+        .nz-title p {
+            font-size: 16px;
+            color: #000000;
+        }
+
+        .nz-title .required-note {
+            color: #000000;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .required-star {
+            color: #d00;
+            font-weight: bold;
+        }
+
+        /* Card */
+        .nz-card {
+            background: #ffffff;
+            border: 1px solid #000000;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        /* Form elements */
+        .nz-field {
+            margin-bottom: 25px;
+        }
+
+        .nz-label {
+            display: block;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .nz-label .required {
+            color: #d00;
+            margin-left: 3px;
+        }
+
+        /* Radio group */
+        .nz-radio-group {
+            display: flex;
+            gap: 40px;
+            margin: 15px 0 25px;
+            padding: 5px 0;
+        }
+
+        .nz-radio {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nz-radio input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #132e48;
+        }
+
+        .nz-radio label {
+            font-size: 15px;
+            cursor: pointer;
+            color: #000000;
+        }
+
+        /* Input fields */
+        .nz-input, .nz-select {
+            width: 100%;
+            max-width: 500px;
+            padding: 12px 15px;
+            border: 1px solid #000000;
+            border-radius: 0;
+            font-size: 15px;
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .nz-input:focus, .nz-select:focus {
+            outline: 2px solid #132e48;
+            outline-offset: 2px;
+            border-color: #132e48;
+        }
+
+        /* Date row */
+        .nz-date-row {
+            display: flex;
+            gap: 15px;
+            max-width: 500px;
+        }
+
+        .nz-date-select {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #000000;
+            border-radius: 0;
+            font-size: 15px;
+            background: #ffffff;
+            color: #000000;
+        }
+
+        /* Pink Search Button */
+        .nz-search-btn {
+            background: #d9534f;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+            width: auto;
+            min-width: 200px;
+        }
+
+        .nz-search-btn:hover {
+            background: #c9302c;
+        }
+
+        /* Info box */
+        .nz-info {
+            background: #ffffff;
+            border-left: 4px solid #132e48;
+            padding: 20px;
+            margin: 30px 0;
+            border: 1px solid #000000;
+        }
+
+        .nz-info p {
+            color: #000000;
+            font-size: 14px;
+        }
+
+        /* MBIE Section */
+        .nz-mbie {
+            text-align: center;
+            margin: 30px 0 20px;
+            padding: 20px 0;
+            border-top: 1px solid #000000;
+            border-bottom: 1px solid #000000;
+        }
+
+        .nz-mbie img {
+            max-width: 300px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .nz-mbie p {
+            font-size: 14px;
+            color: #000000;
+            line-height: 1.6;
+            display: none; /* Hide text since we have logo */
+        }
+
+        /* Footer - Black background with white text */
+        .nz-footer {
+            background: #000000;
+            color: #ffffff;
+            padding: 25px 30px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .nz-footer-links {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .nz-footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 13px;
+            opacity: 0.9;
+            transition: opacity 0.2s;
+        }
+
+        .nz-footer-links a:hover {
+            text-decoration: underline;
+            opacity: 1;
+        }
+
+        .nz-footer-copyright {
+            font-size: 12px;
+            color: #ffffff;
+            opacity: 0.8;
+        }
+
+        /* Loading */
+        .nz-loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .nz-loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #132e48;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Result card */
+        .nz-result {
+            background: #ffffff;
+            border: 1px solid #000000;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .nz-result h3 {
+            color: #000000;
+            font-size: 22px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #132e48;
+        }
+
+        .nz-result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .nz-result-item {
+            padding: 10px 0;
+            border-bottom: 1px dotted #000000;
+        }
+
+        .nz-result-label {
+            font-size: 12px;
+            color: #666666;
+            text-transform: uppercase;
+        }
+
+        .nz-result-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000000;
+            margin-top: 5px;
+        }
+
+        .nz-badge {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 4px 12px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 3px;
+            margin-left: 15px;
+        }
+
+        /* Dynamic fields container */
+        #dynamicFields {
+            min-height: 200px;
+        }
+
+        /* Placeholder text color */
+        ::placeholder {
+            color: #666666;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header - Dark Blue with Logo and Login/Contact links -->
+<div class="nz-header">
+    <div class="nz-header-content">
+        <div class="nz-logo">
+            <!-- Logo with link to visas page -->
+            <a href="https://www.immigration.govt.nz/visas/?page=1" target="_blank" rel="noopener noreferrer">
+                <img src="https://images.unsplash.com/vector-1772445720593-5607748ad817?q=80&w=985&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="New Zealand Immigration Logo">
+            </a>
+            <span class="nz-logo-text">Immigration <strong>New Zealand</strong></span>
+        </div>
+        <div class="nz-header-right">
+            <!-- Login link -->
+            <a href="https://login.realme.govt.nz/32179062-92f6-4eb0-89bc-df400a9e0367/B2C_1A_DIA_RealMe_LoginService/samlp/sso/login?SAMLRequest=nVNJj9owFP4rUe5OQlimsQCJRdMiMS0C2kMvyHFewKpjp%2fYLDPPrxwmBoi4cerBkvcXf8p6HlhWypJMKD2oNPyuw6L0WUllaJ0Z%2bZRTVzApLFSvAUuR0M3lZ0jiIKLMWDAqtfG8xH%2fm7jDMOeT8iPOv1SS9POySNeUI4T3KeDXiS9rnvfQNjXc%2fId0%2b4RmsrWCiLTKELRfGARF0Sxdsoob2IdjpB0o%2bTbv%2b7780dN6EYNs0HxNLSMJR6L1RggMkCgr0%2bYqDewm7ceUqiQUySOB%2bQHqQR%2bZCknGR5L4pYAlF38BRO49muM9nNF5Pd2rW%2fwG5Zv7UBcxQcwsaX0Fp9gfC9Z204ND6N%2fJxJCzX5lfNAHOEWWRmNmms5FSoTav%2fYv%2fRSZOmn7XZFVl82W9%2bbXD2daWWrAkzL5%2bt6%2bUt0kQrIQJZGZ87gwJ2LDVwXv%2be0KgQ32uocm3Sremsqi8%2fGUTpp82PK7L3g21x5y8G%2fW4nysaayNcAfD%2btq2szX1OYVDB%2b31hGRkbwppaBQ4NkfXzVnWt7m6%2b71AcGKYXgHc8Es6Wf30mK%2b0lLw839Al%2fWGWnQM3Dyk1KeZ2y90Q0ZTuRmHV5j2v0DWbIUbGMIrtrrvQzPpHF1DPq4pqDdJax1UcKQWM0tZXUozKKU%2bFw6Uflxu7j4Zp7zud4yX%2brRBA2qPh1b2X1EuuX%2fSC%2f%2f88eN3&RelayState=StateProperties%3deyJUSUQiOiIxYzIxOTkyNS04OTAyLTRmMTUtYmRiOC0zNDNlYWI0YWQxODEifQ&SigAlg=http%3a%2f%2fwww.w3.org%2f2000%2f09%2fxmldsig%23rsa-sha1&Signature=VyqpRAhIFOxxRsTDpaOytg9Q%2ftkm2NHcgdx4ZmUrh1adxfihcQcKwnUFbTk5M3NDUFJ0TrTxMZUtP6cWrs6Vmoe2AD9eo13cp18pkeiH8If3aeBT8doq%2bHqXKqCnronpvexA9hTwoItANJqpvE8Ts23V64QdNyYS4Ms%2b0ZNqaUgAjf9EHRxiTkNoywIkKDj5oH9Yj6ks4zQ2lTXntPYf%2b6Y1ZeRRZsnVf9Cyl0TWXcoGBiB77TotZr5lzcEhsU0s7v1TVz967pxjNfd8sW7xF4VuUN%2fqQUsmIUwv6BbI%2bOa%2fnzphIJg7fYsKjBGCt%2bw7foAIiamFX1T%2f01yOjBF8pQ%3d%3d" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-user"></i> Log in
+            </a>
+            <!-- Contact link -->
+            <a href="https://www.immigration.govt.nz/contact-us/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-envelope"></i> Contact
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Main Container -->
+<div class="nz-container">
+    <!-- Title Section -->
+    <div class="nz-title">
+        <h1>Check your NZeTA status</h1>
+        <p>Use this form to check the status of your NZeTA.</p>
+        <div class="required-note"><span class="required-star">*</span> Required field</div>
+    </div>
+
+    <!-- Form Card -->
+    <div class="nz-card" id="formCard">
+        <!-- Radio buttons - initially none selected -->
+        <div class="nz-field">
+            <div class="nz-label">Do you have an NZeTA reference number? <span class="required">*</span></div>
+            <div class="nz-radio-group">
+                <div class="nz-radio">
+                    <input type="radio" name="hasReference" id="refNo" value="no" onclick="handleRadioClick('no')">
+                    <label for="refNo">No</label>
+                </div>
+                <div class="nz-radio">
+                    <input type="radio" name="hasReference" id="refYes" value="yes" onclick="handleRadioClick('yes')">
+                    <label for="refYes">Yes</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Fields Container - initially empty -->
+        <div id="dynamicFields"></div>
+
+        <!-- Search Button - initially hidden -->
+        <div id="searchButtonContainer" style="display: none;">
+            <button class="nz-search-btn" onclick="searchNzeta()">SEARCH</button>
+        </div>
+    </div>
+
+    <!-- MBIE Section with Logo -->
+    <div class="nz-mbie">
+        <img src="https://images.unsplash.com/vector-1772443726298-c08c4bc2e6a2?q=80&w=1800&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+             alt="Ministry of Business, Innovation & Employment">
+        <p>MINISTRY OF BUSINESS, INNOVATION & EMPLOYMENT<br>HĪKINA WHAKATUTUKI</p>
+    </div>
+
+    <!-- Result Container -->
+    <div id="resultContainer"></div>
+</div>
+
+<!-- Footer - Black background with white text and all links -->
+<div class="nz-footer">
+    <div class="nz-footer-links">
+        <a href="https://www.immigration.govt.nz/about-us/about-this-site/accessibility/" target="_blank" rel="noopener noreferrer">ACCESSIBILITY</a>
+        <a href="https://www.immigration.govt.nz/about-us/about-this-site/privacy-statement/" target="_blank" rel="noopener noreferrer">PRIVACY</a>
+        <a href="https://www.immigration.govt.nz/about-us/about-this-site/copyright/" target="_blank" rel="noopener noreferrer">COPYRIGHT</a>
+        <a href="https://www.immigration.govt.nz/about-us/about-this-site/using-our-website-and-online-tools/terms-of-use-of-our-online-systems/" target="_blank" rel="noopener noreferrer">TERMS OF USE</a>
+        <a href="https://www.immigration.govt.nz/contact-us/" target="_blank" rel="noopener noreferrer">CONTACT US</a>
+    </div>
+    <div class="nz-footer-copyright">
+        © 2026 IMMIGRATION NEW ZEALAND (20251211)
+    </div>
+</div>
+
+<script>
+    // FLAG
+    const FLAG = "NZETA{EXACT_NZ_IMMIGRATION_COPY_15_ENTRIES}";
+
+    // ১৫ জনের ডাটাবেস
+    const nzetaDatabase = [
+        {
+            reference: "NZETA49616",
+            passport: "PA1232072",
+            dob: "21/09/2005",
+            expiry: "29/05/2026",
+            nationality: "Bangladesh",
+            lastName: "HALIM",
+            firstName: "RAHI",
+            status: "APPROVED",
+            validFrom: "27/02/2026",
+            validTo: "29/05/2026",
+            entries: "Multiple",
+            duration: "90 days"
+        },
+        {
+            reference: "NZETA789012",
+            passport: "PB9876543",
+            dob: "15/03/1990",
+            expiry: "09/04/2026",
+            nationality: "India",
+            lastName: "CHAUDHARY",
+            firstName: "SUNDAR LAL",
+            status: "APPROVED",
+            validFrom: "10/01/2026",
+            validTo: "09/04/2026",
+            entries: "Single",
+            duration: "30 days"
+        },
+        {
+            reference: "NZETA345678",
+            passport: "PC4567890",
+            dob: "07/11/1985",
+            expiry: "20/05/2026",
+            nationality: "Pakistan",
+            lastName: "RAHMAN",
+            firstName: "MOHAMMAD",
+            status: "APPROVED",
+            validFrom: "20/02/2026",
+            validTo: "20/05/2026",
+            entries: "Multiple",
+            duration: "60 days"
+        },
+        {
+            reference: "NZETA901234",
+            passport: "PD7890123",
+            dob: "03/05/1995",
+            expiry: "14/06/2026",
+            nationality: "China",
+            lastName: "CHEN",
+            firstName: "WEI",
+            status: "APPROVED",
+            validFrom: "15/03/2026",
+            validTo: "14/06/2026",
+            entries: "Single",
+            duration: "45 days"
+        },
+        {
+            reference: "NZETA567890",
+            passport: "PE2345678",
+            dob: "28/08/1978",
+            expiry: "05/07/2026",
+            nationality: "USA",
+            lastName: "SMITH",
+            firstName: "JOHN",
+            status: "APPROVED",
+            validFrom: "05/04/2026",
+            validTo: "05/07/2026",
+            entries: "Multiple",
+            duration: "90 days"
+        },
+        {
+            reference: "NZETA123456",
+            passport: "PF3456789",
+            dob: "12/12/1982",
+            expiry: "22/07/2026",
+            nationality: "Germany",
+            lastName: "MULLER",
+            firstName: "HANS",
+            status: "APPROVED",
+            validFrom: "22/04/2026",
+            validTo: "22/07/2026",
+            entries: "Single",
+            duration: "30 days"
+        },
+        {
+            reference: "NZETA234567",
+            passport: "PG4567890",
+            dob: "19/06/1992",
+            expiry: "01/08/2026",
+            nationality: "France",
+            lastName: "DUBOIS",
+            firstName: "MARIE",
+            status: "APPROVED",
+            validFrom: "01/05/2026",
+            validTo: "01/08/2026",
+            entries: "Multiple",
+            duration: "90 days"
+        },
+        {
+            reference: "NZETA345679",
+            passport: "PH5678901",
+            dob: "30/09/1988",
+            expiry: "12/08/2026",
+            nationality: "Italy",
+            lastName: "ROSSI",
+            firstName: "MARCO",
+            status: "APPROVED",
+            validFrom: "12/05/2026",
+            validTo: "12/08/2026",
+            entries: "Single",
+            duration: "45 days"
+        },
+        {
+            reference: "NZETA456780",
+            passport: "PI6789012",
+            dob: "25/01/1975",
+            expiry: "20/08/2026",
+            nationality: "Nepal",
+            lastName: "KUMAR",
+            firstName: "RAJESH",
+            status: "APPROVED",
+            validFrom: "20/05/2026",
+            validTo: "20/08/2026",
+            entries: "Multiple",
+            duration: "60 days"
+        },
+        {
+            reference: "NZETA567891",
+            passport: "PJ7890123",
+            dob: "17/04/1998",
+            expiry: "01/09/2026",
+            nationality: "Egypt",
+            lastName: "AHMED",
+            firstName: "FATIMA",
+            status: "APPROVED",
+            validFrom: "01/06/2026",
+            validTo: "01/09/2026",
+            entries: "Single",
+            duration: "30 days"
+        },
+        {
+            reference: "NZETA678902",
+            passport: "PK8901234",
+            dob: "09/07/1980",
+            expiry: "15/09/2026",
+            nationality: "Brazil",
+            lastName: "SANTOS",
+            firstName: "JOSE",
+            status: "APPROVED",
+            validFrom: "15/06/2026",
+            validTo: "15/09/2026",
+            entries: "Multiple",
+            duration: "90 days"
+        },
+        {
+            reference: "NZETA789013",
+            passport: "PL9012345",
+            dob: "22/11/1993",
+            expiry: "20/09/2026",
+            nationality: "Vietnam",
+            lastName: "NGUYEN",
+            firstName: "THI",
+            status: "APPROVED",
+            validFrom: "20/06/2026",
+            validTo: "20/09/2026",
+            entries: "Single",
+            duration: "45 days"
+        },
+        {
+            reference: "NZETA890124",
+            passport: "PM0123456",
+            dob: "05/02/1987",
+            expiry: "01/10/2026",
+            nationality: "Jordan",
+            lastName: "SAEED",
+            firstName: "LAYLA",
+            status: "APPROVED",
+            validFrom: "01/07/2026",
+            validTo: "01/10/2026",
+            entries: "Multiple",
+            duration: "60 days"
+        },
+        {
+            reference: "NZETA901235",
+            passport: "PN1234567",
+            dob: "14/10/2000",
+            expiry: "10/10/2026",
+            nationality: "South Korea",
+            lastName: "KIM",
+            firstName: "MIN JI",
+            status: "APPROVED",
+            validFrom: "10/07/2026",
+            validTo: "10/10/2026",
+            entries: "Single",
+            duration: "30 days"
+        }
+    ];
+
+    // Handle radio button click
+    function handleRadioClick(selection) {
+        // Uncheck the other radio
+        if (selection === 'yes') {
+            document.getElementById('refNo').checked = false;
+        } else {
+            document.getElementById('refYes').checked = false;
+        }
+        
+        // Show corresponding fields
+        showFields(selection);
+    }
+
+    // Show fields based on selection
+    function showFields(selection) {
+        const container = document.getElementById('dynamicFields');
+        const searchBtnContainer = document.getElementById('searchButtonContainer');
+        
+        if (selection === 'yes') {
+            // Show Yes fields (iuj2)
+            container.innerHTML = `
+                <div class="nz-field">
+                    <div class="nz-label">Enter your NZeTA reference number <span class="required">*</span></div>
+                    <input type="text" class="nz-input" id="refNumber" placeholder="e.g. NZETA49616">
+                </div>
+                <div class="nz-field">
+                    <div class="nz-label">Enter your passport number exactly as it appears on your passport <span class="required">*</span></div>
+                    <input type="text" class="nz-input" id="passportNumber" placeholder="e.g. PA1232072">
+                </div>
+                <div class="nz-field">
+                    <div class="nz-label">Select your nationality as shown on the passport you will be travelling on <span class="required">*</span></div>
+                    <select class="nz-select" id="nationality">
+                        <option value="">Select nationality</option>
+                        <option value="Bangladesh">Bangladesh</option>
+                        <option value="India">India</option>
+                        <option value="Pakistan">Pakistan</option>
+                        <option value="Romania">Romania</option>
+                        <option value="Moldova">Moldova</option>
+                        <option value="China">China</option>
+                        <option value="USA">USA</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            `;
+        } else {
+            // Show No fields (iuj4)
+            container.innerHTML = `
+                <div class="nz-field">
+                    <div class="nz-label">Enter your passport number exactly as it appears on your passport <span class="required">*</span></div>
+                    <input type="text" class="nz-input" id="passportNumber" placeholder="e.g. PA1232072">
+                </div>
+                <div class="nz-field">
+                    <div class="nz-label">Select your nationality as shown on the passport you will be travelling on <span class="required">*</span></div>
+                    <select class="nz-select" id="nationality">
+                        <option value="">Select nationality</option>
+                        <option value="Bangladesh">Bangladesh</option>
+                        <option value="India">India</option>
+                        <option value="Pakistan">Pakistan</option>
+                        <option value="Romania">Romania</option>
+                        <option value="Moldova">Moldova</option>
+                        <option value="China">China</option>
+                        <option value="USA">USA</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="nz-field">
+                    <div class="nz-label">Select the expiry date as shown on your passport <span class="required">*</span></div>
+                    <div class="nz-date-row">
+                        <select class="nz-date-select" id="expiryDay">
+                            <option value="">Day</option>
+                            ${Array.from({length: 31}, (_, i) => `<option value="${(i+1).toString().padStart(2,'0')}">${i+1}</option>`).join('')}
+                        </select>
+                        <select class="nz-date-select" id="expiryMonth">
+                            <option value="">Month</option>
+                            ${Array.from({length: 12}, (_, i) => `<option value="${(i+1).toString().padStart(2,'0')}">${i+1}</option>`).join('')}
+                        </select>
+                        <select class="nz-date-select" id="expiryYear">
+                            <option value="">Year</option>
+                            ${Array.from({length: 10}, (_, i) => `<option value="${2025+i}">${2025+i}</option>`).join('')}
+                        </select>
+                    </div>
+                </div>
+                <div class="nz-field">
+                    <div class="nz-label">Select your date of birth as shown on your passport <span class="required">*</span></div>
+                    <div class="nz-date-row">
+                        <select class="nz-date-select" id="dobDay">
+                            <option value="">Day</option>
+                            ${Array.from({length: 31}, (_, i) => `<option value="${(i+1).toString().padStart(2,'0')}">${i+1}</option>`).join('')}
+                        </select>
+                        <select class="nz-date-select" id="dobMonth">
+                            <option value="">Month</option>
+                            ${Array.from({length: 12}, (_, i) => `<option value="${(i+1).toString().padStart(2,'0')}">${i+1}</option>`).join('')}
+                        </select>
+                        <select class="nz-date-select" id="dobYear">
+                            <option value="">Year</option>
+                            ${Array.from({length: 100}, (_, i) => `<option value="${1925+i}">${1925+i}</option>`).join('')}
+                        </select>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Show search button
+        searchBtnContainer.style.display = 'block';
+    }
+
+    // Search function
+    function searchNzeta() {
+        const hasRef = document.getElementById('refYes')?.checked;
+        
+        let found = null;
+        
+        if (hasRef) {
+            // Search by reference + passport + nationality
+            const ref = document.getElementById('refNumber')?.value.trim();
+            const passport = document.getElementById('passportNumber')?.value.trim();
+            const nationality = document.getElementById('nationality')?.value;
+
+            if (!ref || !passport || !nationality) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            found = nzetaDatabase.find(entry => 
+                entry.reference === ref && 
+                entry.passport === passport && 
+                entry.nationality === nationality
+            );
+        } else {
+            // Search by passport + nationality + expiry + dob
+            const passport = document.getElementById('passportNumber')?.value.trim();
+            const nationality = document.getElementById('nationality')?.value;
+            
+            const expiryDay = document.getElementById('expiryDay')?.value;
+            const expiryMonth = document.getElementById('expiryMonth')?.value;
+            const expiryYear = document.getElementById('expiryYear')?.value;
+            
+            const dobDay = document.getElementById('dobDay')?.value;
+            const dobMonth = document.getElementById('dobMonth')?.value;
+            const dobYear = document.getElementById('dobYear')?.value;
+
+            if (!passport || !nationality || !expiryDay || !expiryMonth || !expiryYear || !dobDay || !dobMonth || !dobYear) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            const expiry = `${expiryDay}/${expiryMonth}/${expiryYear}`;
+            const dob = `${dobDay}/${dobMonth}/${dobYear}`;
+
+            found = nzetaDatabase.find(entry => 
+                entry.passport === passport && 
+                entry.nationality === nationality && 
+                entry.expiry === expiry &&
+                entry.dob === dob
+            );
+        }
+
+        // Show result
+        const resultDiv = document.getElementById('resultContainer');
+        
+        if (found) {
+            resultDiv.innerHTML = `
+                <div class="nz-result">
+                    <h3>NZeTA Application Found <span class="nz-badge">${found.status}</span></h3>
+                    <div class="nz-result-grid">
+                        <div class="nz-result-item">
+                            <div class="nz-result-label">Reference Number</div>
+                            <div class="nz-result-value">${found.reference}</div>
+                        </div>
+                        <div class="nz-result-item">
+                            <div class="nz-result-label">Name</div>
+                            <div class="nz-result-value">${found.firstName} ${found.lastName}</div>
+                        </div>
+                        <div class="nz-result-item">
+                            <div class="nz-result-label">Passport Number</div>
+                            <div class="nz-result-value">${found.passport}</div>
+                        </div>
+                        <div class="nz-result-item">
+                            <div class="nz-result-label">Nationality</div>
+                            <div class="nz-result-value">${found.nationality}</div>
+                        </div>
+                        <div class="nz-result-item">
+                            <div class="nz-result-label">Date of Birth</div>
+                            <div class="nz-result-value">${found.dob}</div>
+                        </div>
+                        <div class="nz-result-item">
+                            <div class="nz-result-label">Valid From</div>
+                            <div class="nz-result-value">${found.validFrom}</div>
+                        </div>
+                        <div class="nz-result-item">
+                            <div class="nz-result-label">Valid To</div>
+                            <div class="nz-result-value">${found.validTo}</div>
+                        </div>
+                        <div class="nz-result-item">
+                            <div class="nz-result-label">Entries</div>
+                            <div class="nz-result-value">${found.entries}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else {
+            resultDiv.innerHTML = `
+                <div class="nz-result">
+                    <h3 style="color: #d00;">No NZeTA Found</h3>
+                    <p style="text-align: center; padding: 20px;">No matching NZeTA application found. Please check your information and try again.</p>
+                </div>
+            `;
+        }
+    }
+
+    console.log('%c🇳🇿 FLAG: NZETA{EXACT_NZ_IMMIGRATION_COPY_15_ENTRIES}', 'background: #132e48; color: #d9534f; font-size: 14px; padding: 8px; border-radius: 4px;');
+</script>
+
+</body>
+</html>
